@@ -283,24 +283,24 @@
                         </div>
                     </div>
                 </template>
-                <img class="posImage bordered" v-for="image, i in images" :src="image.file" :key="image.file" :id="'cass'+i"
+                <img class="posImage bordered" v-for="image, i in images" :src="'images/'+image.file" :key="image.file" :id="'cass'+i"
                     @load="imageStyle($event, i, image)" style="visibility: hidden;">
             </div>
         </div>
         <div id="middleStripe" :style="{height: screenHeight/3+'px'}">
-            <img src="great.svg" style="height: 65%; max-width: 90%;">
+            <img src="images/great.svg" style="height: 65%; max-width: 90%;">
         </div>
         <div id="bottomStripe" :style="{height: screenHeight+'px'}">
             <div>
                 <div class="quoteCont" v-for="q,i in (isVertical ? quotes : divideQuotes(1))" :key="q.quote">
                     <div class="quote">
                         {{'"'+q.quote+'"'}}
-                        <img class="flourish" v-if="!isVertical" src="flourish.png">
+                        <img class="flourish" v-if="!isVertical" src="images/flourish.png">
                     </div>
                     <div class="source">
                         <a v-if="q.attachment" :href="q.attachment">{{" - "+q.author}}</a>
                         <span v-else>{{" - "+q.author}}</span>
-                        <img class="flourish" v-if="isVertical" src="flourish.png">
+                        <img class="flourish" v-if="isVertical" src="images/flourish.png">
                     </div>
                 </div>
             </div>
@@ -309,7 +309,7 @@
                 <div class="quoteCont" v-for="q in divideQuotes(2)" :key="q.quote">
                     <div class="quote">
                         {{'"'+q.quote+'"'}}
-                        <img class="flourish" src="flourish.png">
+                        <img class="flourish" src="image/flourish.png">
                     </div>
                     <div class="source">
                         {{" - "+q.author}}
