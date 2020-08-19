@@ -1,12 +1,12 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const isDev = true;
+const isDev = process.env["NODE_ENV"] != "production";
 module.exports = {
     "mode": isDev ? "development" : "production",
     "entry": "./src/index.js",
     "output": {
         "filename": "bundle.js"
     },
-    devtool: "inline-source-map",
+    devtool: isDev ? "inline-cheap-module-source-map" : false,
     module: {
         rules: [{
                 test: /\.vue$/,
@@ -20,11 +20,5 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin()
-    ],
-    resolve: {
-        alias: {
-            // use the full build with template compiler
-            'vue$': 'vue/dist/vue.esm.js'
-        }
-    }
+    ]
 }

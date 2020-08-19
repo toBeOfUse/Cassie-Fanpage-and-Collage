@@ -1,8 +1,9 @@
 {
-  "name": "Cassie-Fanpage-and-Collage",
+  "name": "cassie-fanpage-and-collage",
   "scripts":{
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "produce": "set NODE_ENV=production&&webpack"
   },
   "devDependencies": {
     "css-loader": "^4.2.1",
