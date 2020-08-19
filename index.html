@@ -1,0 +1,535 @@
+<html>
+
+<head>
+    <title>Cassie Is Great Page</title>
+    <meta name="description" content="page abt cassie">
+    <link rel="icon" href="icon.png" type="image/png">
+    <meta property="og:image" content="/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Libre%20Baskerville' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        body,
+        p {
+            margin: 0;
+        }
+
+        .posImage {
+            transition: opacity 100ms linear, transform 200ms linear;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .shortboi .posImage:hover {
+            transform: translate(-50%, -50%) scale(1.15, 1.15);
+        }
+
+        .bordered {
+            border: 1px black solid;
+            border-radius: 4px;
+        }
+
+        #topStripe {
+            background: linear-gradient(to bottom, #ffc0e0 0%, #b50367 100%);
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .collageCont {
+            position: relative;
+            height: 100%;
+        }
+
+        #middleStripe {
+            background: linear-gradient(to bottom, #9B4F96 0%, #a01194 50%, #9B4F96 100%);
+            width: 100%;
+            font-family: 'Arizonia', Helvetica;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #bottomStripe {
+            background: linear-gradient(to bottom, #1562fb 0%, #1342a0 100%);
+            width: 100%;
+            padding: 0 4% 0 4%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-family: 'Libre Baskerville', serif;
+            overflow-y: hidden;
+        }
+
+        .divLine {
+            width: 1px;
+            height: 85%;
+            border-color: black;
+            border-style: solid;
+            display: inline-block;
+            margin: 0 4% 0 5%;
+        }
+
+        #scrollMessage {
+            position: absolute;
+            top: 30px;
+            font-family: 'Arizonia', Helvetica, sans-serif;
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+            opacity: 0.5;
+        }
+
+        .quote {
+            font-size: 1.5em;
+            text-align: center;
+            width: 80%;
+        }
+
+        .source {
+            width: 20%;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .quoteCont {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 20px 0;
+        }
+
+        h1 {
+            margin-bottom: 0.45em;
+        }
+
+        a {
+            color: darkblue;
+        }
+
+        .flourish {
+            height: 1em;
+            display: block;
+            margin: 10px auto 0 auto;
+        }
+
+        /* horizontal */
+        @media (min-aspect-ratio: 1/1) {
+            @media (min-height: 300px) and (max-height: 350px) {
+                body {
+                    font-size: 0.45em;
+                }
+            }
+
+            @media (min-height: 350px) and (max-height: 400px) {
+                body {
+                    font-size: 0.5em;
+                }
+            }
+        }
+
+        /* vertical */
+        @media (max-aspect-ratio: 1/1) {
+
+            @media (max-width: 355px) {
+                body {
+                    font-size: 0.5em;
+                }
+            }
+
+            @media (min-width: 355px) and (max-width: 420px) {
+                body {
+                    font-size: 0.6em;
+                }
+            }
+
+            @media (min-width: 420px) and (max-width: 470px) {
+                body {
+                    font-size: 0.7em;
+                }
+            }
+
+            #bottomStripe {
+                flex-direction: column;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .flourish {
+                height: 0.7em;
+                margin: 5px auto 0 auto;
+            }
+
+            .quote {
+                width: 87.5%;
+            }
+
+            .divLine {
+                display: none;
+            }
+
+            .quoteCont {
+                flex-direction: column;
+                margin: 10px auto 10px auto;
+            }
+        }
+
+
+        .lds-ellipsis {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            z-index: 0;
+        }
+
+        .lds-ellipsis div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fff;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+
+        .lds-ellipsis div:nth-child(1) {
+            left: 8px;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(2) {
+            left: 8px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(3) {
+            left: 32px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(4) {
+            left: 56px;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+
+        @keyframes lds-ellipsis1 {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes lds-ellipsis3 {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(0);
+            }
+        }
+
+        @keyframes lds-ellipsis2 {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(24px, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="heightref" style="height:100vh; width: 1px; position: fixed; opacity: 0;"></div>
+    <div id="root">
+        <div id="topStripe" :class="isVertical ? 'longboi' : 'shortboi'" :style="{height: topStripeHeight}">
+            <div class="collageCont" :style="{width: screenHeight*collageAspectRatio}">
+                <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
+                <template v-if="isVertical">
+                    <div style="position: absolute;" :style="{left: forty('50%'), top: calcSpinnerTop()}">
+                        <div class="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div v-for="image, i in images" :key="i" style="position: absolute;" :style="{left: forty(image.left), top: forty(image.top)}">
+                        <div class="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </template>
+                <img class="posImage bordered" v-for="image, i in images" :src="image.file" :key="image.file" :id="'cass'+i"
+                    @load="imageStyle($event, i, image)" style="visibility: hidden;">
+            </div>
+        </div>
+        <div id="middleStripe" :style="{height: screenHeight/3+'px'}">
+            <img src="great.svg" style="height: 65%; max-width: 90%;">
+        </div>
+        <div id="bottomStripe" :style="{height: screenHeight+'px'}">
+            <div>
+                <div class="quoteCont" v-for="q,i in (isVertical ? quotes : divideQuotes(1))" :key="q.quote">
+                    <div class="quote">
+                        {{'"'+q.quote+'"'}}
+                        <img class="flourish" v-if="!isVertical" src="flourish.png">
+                    </div>
+                    <div class="source">
+                        <a v-if="q.attachment" :href="q.attachment">{{" - "+q.author}}</a>
+                        <span v-else>{{" - "+q.author}}</span>
+                        <img class="flourish" v-if="isVertical" src="flourish.png">
+                    </div>
+                </div>
+            </div>
+            <hr class="divLine">
+            <div v-if="!isVertical">
+                <div class="quoteCont" v-for="q in divideQuotes(2)" :key="q.quote">
+                    <div class="quote">
+                        {{'"'+q.quote+'"'}}
+                        <img class="flourish" src="flourish.png">
+                    </div>
+                    <div class="source">
+                        {{" - "+q.author}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                screenHeight: document.querySelector("#heightref").offsetHeight,
+                screenWidth: window.innerWidth,
+                collageAspectRatio: 1.4,
+                screensPerImage: 0.5,
+                scrollY: 0,
+                images: [{
+                    file: "flowerz.jpg",
+                    left: "50%",
+                    top: "25%",
+                    height: "40%"
+                }, {
+                    file: "up.jpg",
+                    left: "86%",
+                    top: "65%",
+                    height: "45%"
+                }, {
+                    file: "hoodie.jpg",
+                    left: "15.5%",
+                    top: "25%",
+                    height: "25%"
+                }, {
+                    file: "milkshake.jpg",
+                    left: "50%",
+                    top: "75%",
+                    height: "40%"
+                }, {
+                    file: "gamer.jpg",
+                    left: "84.5%",
+                    top: "25%",
+                    height: "25%"
+                }, {
+                    file: "sparkles.webp",
+                    left: "14%",
+                    top: "65%",
+                    height: "45%"
+                }],
+                quotes: [{
+                        quote: "v tolerable",
+                        author: "Mitch"
+                    },
+                    {
+                        quote: "okay, i guess",
+                        author: "Quinn P."
+                    },
+                    {
+                        quote: "the only bitch with a monarch butterfly shirt-collar that i fuck with",
+                        author: "Ariel",
+                        attachment: "ariel.html"
+                    },
+                    {
+                        quote: "Rated 9.5/10 on Yelp. Usually funny, sometimes awkward.",
+                        author: "Alex"
+                    },
+                    {
+                        quote: "She's pretty tolerable, I guess. Sometimes...",
+                        author: "Cameron"
+                    },
+                    {
+                        quote: "The only acceptable Sonic lover",
+                        author: "Teresa"
+                    },
+                    {
+                        quote: "Very cool. The only meme lord I believe in. Super smart and hella cute.",
+                        author: "Jade"
+                    },
+                    {
+                        quote: "the only furry i'll ever respect. always eager for more details about robotnik being a top",
+                        author: "Port"
+                    },
+                    {
+                        quote: "best conversator about robo-communism.",
+                        author: "Trip"
+                    },
+                    {
+                        quote: "Gay",
+                        author: "anonymous"
+                    }
+                ]
+            },
+            mounted() {
+                this.canUseWebP().then(canUseWebP => {
+                    if (!canUseWebP) {
+                        this.images = this.images.map(v => ({...v, file: v.file.replace(/\.webp/, ".gif")}));
+                    }
+                });
+                const setSize = () => {
+                    const isVertical = this.isVertical;
+                    this.screenHeight = document.querySelector("#heightref").offsetHeight;
+                    // just... don't ask
+                    if (window.outerWidth === 0) {
+                        this.screenWidth = window.innerWidth;
+                    } else if (window.innerWidth === 0) {
+                        this.screenWidth = window.outerWidth;
+                    } else {
+                        this.screenWidth = Math.min(window.outerWidth, window.innerWidth);
+                    }
+                    if (isVertical != this.isVertical) { // so the orientation changed
+                        window.scrollTo(0, 0);
+                    }
+                };
+                setSize();
+                window.addEventListener("resize", setSize);
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+                window.addEventListener("scroll", () => this.scrollY = window.scrollY);
+            },
+            methods: {
+                forty(x) {
+                    return "calc(" + x + " - 40px" + ")";
+                },
+                // called when an image loads; sets up event listeners that keep it in position
+                imageStyle(event, i, meta) {
+                    const image = event.target;
+                    const style = () => {
+                        if (this.isVertical) {
+                            image.style.left = "50%";
+                            const height = this.calcHeight(image);
+                            image.style.height = height;
+                            const isOnTop = this.isOnTop(i);
+                            image.style.opacity = isOnTop ? "1" : "0";
+                            image.style.zIndex = isOnTop ? "10000" : "1";
+                            const position = this.calcPosition(i);
+                            image.style.position = position;
+                            if (position === "absolute") {
+                                image.style.top = this.images.length * this.screenHeight * this.screensPerImage + this.screenHeight / 2 +
+                                    "px";
+                            } else {
+                                image.style.top = "50%";
+                            }
+                        } else {
+                            image.style.left = meta.left;
+                            image.style.top = meta.top;
+                            image.style.height = meta.height;
+                            image.style.position = "absolute";
+                            image.style.opacity = "1";
+                        }
+                        image.style.visibility = "visible";
+                    };
+                    style();
+                    window.addEventListener("resize", style);
+                    window.addEventListener("scroll", style);
+                },
+                /* positioning and visibility math for vertical mode */
+                calcSpinnerTop() {
+                    return Math.min(this.images.length * this.screenHeight * this.screensPerImage + this.screenHeight / 2, this.scrollY + this
+                        .screenHeight / 2) + "px";
+                },
+                calcHeight(image) {
+                    const imageAspectRatio = image.width / image.height;
+                    if (imageAspectRatio > this.screenAspectRatio) {
+                        const width = this.screenWidth * 0.9;
+                        const height = width / imageAspectRatio;
+                        return height + "px";
+                    } else {
+                        return this.screenHeight * 0.8 + "px";
+                    }
+                },
+                isOnTop(i) {
+                    const screensDown = window.scrollY / this.screenHeight;
+                    const currentImage = Math.min(Math.floor(screensDown / this.screensPerImage), this.images.length - 1);
+                    return currentImage == i;
+                },
+                calcPosition(i) {
+                    const totalSlideshowHeight = this.screenHeight * this.screensPerImage * this.images.length;
+                    if (window.scrollY >= totalSlideshowHeight) {
+                        return "absolute";
+                    } else {
+                        return "fixed";
+                    }
+                },
+                /* boring utility functions */
+                divideQuotes(pageNumber) {
+                    if (pageNumber === 1) {
+                        return this.quotes.slice(0, this.quotes.length / 2);
+                    } else {
+                        return this.quotes.slice(this.quotes.length / 2, this.quotes.length);
+                    }
+                },
+                canUseWebP() {
+                    return new Promise((resolve, reject) => {
+                        var webP = new Image();
+                        webP.onload = webP.onerror = function () {
+                            resolve(webP.height == 2);
+                        };
+                        webP.src =
+                            'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+                    });
+                }
+            },
+            computed: {
+                screenAspectRatio() {
+                    return this.screenWidth / this.screenHeight;
+                },
+                isVertical() {
+                    return this.screenHeight > this.screenWidth;
+                },
+                topStripeHeight() {
+                    if (!this.isVertical) {
+                        return this.screenHeight + "px";
+                    } else {
+                        return ((this.screenHeight * this.screensPerImage) * (this.images.length)) + this.screenHeight;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
