@@ -319,3 +319,60 @@ h1 {
     }
 }
 </style>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+body,
+p {
+    margin: 0;
+}
+
+/* horizontal */
+@media (min-aspect-ratio: 1/1) {
+    @media (min-height: 300px) and (max-height: 350px) {
+        body {
+            font-size: 0.45em;
+        }
+    }
+
+    @media (min-height: 350px) and (max-height: 400px) {
+        body {
+            font-size: 0.5em;
+        }
+    }
+
+    @media (min-height: 400px) and (max-height: 450px) {
+        body {
+            font-size: 0.55em;
+        }
+    }
+}
+
+/* vertical */
+@media (max-aspect-ratio: 1/1) {
+    @media (max-width: 355px) {
+        body {
+            font-size: 0.5em;
+        }
+    }
+
+    @media (min-width: 355px) and (max-width: 420px) {
+        body {
+            font-size: 0.6em;
+        }
+    }
+
+    @media (min-width: 420px) and (max-width: 470px) {
+        body {
+            font-size: 0.7em;
+        }
+    }
+}
+</style>
