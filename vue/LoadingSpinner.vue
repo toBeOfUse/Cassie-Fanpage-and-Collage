@@ -1,4 +1,5 @@
 <!-- from https://loading.io/css/ -->
+
 <template>
     <div class="lds-ellipsis">
         <div></div>
@@ -8,9 +9,11 @@
     </div>
 </template>
 
+<script>
 export default {
-    name: "loading-spinner"
+    
 };
+</script>
 
 <style scoped>
 .lds-ellipsis {

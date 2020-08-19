@@ -1,11 +1,12 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
+const isDev = true;
 module.exports = {
-    "mode": "development",
+    "mode": isDev ? "development" : "production",
     "entry": "./index.js",
     "output": {
         "filename": "bundle.js"
     },
+    devtool: "inline-source-map",
     module: {
         rules: [{
                 test: /\.vue$/,
@@ -13,10 +14,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader'
-                ]
+                use: ['style-loader', 'css-loader']
             }
         ]
     },

@@ -2,6 +2,7 @@
 
 <head>
     <title>Cassie Is Great Page</title>
+    <script src="dist/bundle.js"></script>
     <meta name="description" content="page abt cassie">
     <link rel="icon" href="icon.png" type="image/png">
     <meta property="og:image" content="/icon.png">
@@ -238,11 +239,10 @@
         </div>
     </div>
 
-    <script src="/dist/bundle.js"></script>
-
     <script>
         new Vue({
             el: "#root",
+            components: {LoadingSpinner},
             data: {
                 screenHeight: document.querySelector("#heightref").offsetHeight,
                 screenWidth: window.innerWidth,
