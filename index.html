@@ -7,7 +7,6 @@
     <meta property="og:image" content="/icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Libre%20Baskerville' rel='stylesheet' type='text/css'>
     <style>
@@ -185,75 +184,6 @@
                 margin: 10px auto 10px auto;
             }
         }
-
-
-        .lds-ellipsis {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-            z-index: 0;
-        }
-
-        .lds-ellipsis div {
-            position: absolute;
-            top: 33px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #fff;
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
-        }
-
-        .lds-ellipsis div:nth-child(1) {
-            left: 8px;
-            animation: lds-ellipsis1 0.6s infinite;
-        }
-
-        .lds-ellipsis div:nth-child(2) {
-            left: 8px;
-            animation: lds-ellipsis2 0.6s infinite;
-        }
-
-        .lds-ellipsis div:nth-child(3) {
-            left: 32px;
-            animation: lds-ellipsis2 0.6s infinite;
-        }
-
-        .lds-ellipsis div:nth-child(4) {
-            left: 56px;
-            animation: lds-ellipsis3 0.6s infinite;
-        }
-
-        @keyframes lds-ellipsis1 {
-            0% {
-                transform: scale(0);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes lds-ellipsis3 {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(0);
-            }
-        }
-
-        @keyframes lds-ellipsis2 {
-            0% {
-                transform: translate(0, 0);
-            }
-
-            100% {
-                transform: translate(24px, 0);
-            }
-        }
     </style>
 </head>
 
@@ -265,22 +195,11 @@
                 <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
                 <template v-if="isVertical">
                     <div style="position: absolute;" :style="{left: forty('50%'), top: calcSpinnerTop()}">
-                        <div class="lds-ellipsis">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
+                        <loading-spinner></loading-spinner>
                 </template>
                 <template v-else>
                     <div v-for="image, i in images" :key="i" style="position: absolute;" :style="{left: forty(image.left), top: forty(image.top)}">
-                        <div class="lds-ellipsis">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+                        <loading-spinner></loading-spinner>
                     </div>
                 </template>
                 <img class="posImage bordered" v-for="image, i in images" :src="'images/'+image.file" :key="image.file" :id="'cass'+i"
@@ -318,6 +237,8 @@
             </div>
         </div>
     </div>
+
+    <script src="/dist/bundle.js"></script>
 
     <script>
         new Vue({
