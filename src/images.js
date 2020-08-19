@@ -1,0 +1,31 @@
+export default [{
+    file: "flowerz.jpg",
+    left: "50%",
+    top: "25%",
+    height: "40%"
+}, {
+    file: "up.jpg",
+    left: "86%",
+    top: "65%",
+    height: "45%"
+}, {
+    file: "hoodie.jpg",
+    left: "15.5%",
+    top: "25%",
+    height: "25%"
+}, {
+    file: "milkshake.jpg",
+    left: "50%",
+    top: "75%",
+    height: "40%"
+}, {
+    file: "gamer.jpg",
+    left: "84.5%",
+    top: "25%",
+    height: "25%"
+}, {
+    file: "sparkles.webp",
+    left: "14%",
+    top: "65%",
+    height: "45%"
+}];
