@@ -195,11 +195,11 @@
             <div class="collageCont" :style="{width: screenHeight*collageAspectRatio}">
                 <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
                 <template v-if="isVertical">
-                    <div style="position: absolute;" :style="{left: forty('50%'), top: calcSpinnerTop()}">
+                    <div style="position: absolute;" :style="calcSpinnerStyle()">
                         <loading-spinner></loading-spinner>
                 </template>
                 <template v-else>
-                    <div v-for="image, i in images" :key="i" style="position: absolute;" :style="{left: forty(image.left), top: forty(image.top)}">
+                    <div v-for="image, i in images" :key="i" style="position: absolute;" :style="{left: image.left, top: image.top}">
                         <loading-spinner></loading-spinner>
                     </div>
                 </template>
@@ -242,7 +242,9 @@
     <script>
         new Vue({
             el: "#root",
-            components: {LoadingSpinner},
+            components: {
+                LoadingSpinner
+            },
             data: {
                 screenHeight: document.querySelector("#heightref").offsetHeight,
                 screenWidth: window.innerWidth,
@@ -326,7 +328,10 @@
             mounted() {
                 this.canUseWebP().then(canUseWebP => {
                     if (!canUseWebP) {
-                        this.images = this.images.map(v => ({...v, file: v.file.replace(/\.webp/, ".gif")}));
+                        this.images = this.images.map(v => ({
+                            ...v,
+                            file: v.file.replace(/\.webp/, ".gif")
+                        }));
                     }
                 });
                 const setSize = () => {
@@ -352,9 +357,6 @@
                 window.addEventListener("scroll", () => this.scrollY = window.scrollY);
             },
             methods: {
-                forty(x) {
-                    return "calc(" + x + " - 40px" + ")";
-                },
                 // called when an image loads; sets up event listeners that keep it in position
                 imageStyle(event, i, meta) {
                     const image = event.target;
@@ -388,9 +390,20 @@
                     window.addEventListener("scroll", style);
                 },
                 /* positioning and visibility math for vertical mode */
-                calcSpinnerTop() {
-                    return Math.min(this.images.length * this.screenHeight * this.screensPerImage + this.screenHeight / 2, this.scrollY + this
-                        .screenHeight / 2) + "px";
+                calcSpinnerStyle() {
+                    const finalPos = this.images.length * this.screenHeight * this.screensPerImage;
+                    if (this.scrollY < finalPos) {
+                        return {
+                            left: "50%",
+                            top: "50%",
+                            position: "fixed",
+                        }
+                    } else {
+                        return {
+                            left: '50%',
+                            top: this.images.length * this.screenHeight * this.screensPerImage + this.screenHeight / 2 + "px"
+                        };
+                    }
                 },
                 calcHeight(image) {
                     const imageAspectRatio = image.width / image.height;

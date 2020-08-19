@@ -1,4 +1,4 @@
-<!-- from https://loading.io/css/ -->
+<!-- from https://loading.io/css/ with addition to make it self-centering -->
 
 <template>
     <div class="lds-ellipsis">
@@ -22,6 +22,8 @@ export default {
     width: 80px;
     height: 80px;
     z-index: 0;
+    /* make self-centering */
+    transform: translate(-50%, -50%);
 }
 
 .lds-ellipsis div {
