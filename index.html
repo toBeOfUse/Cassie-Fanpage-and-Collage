@@ -93,36 +93,8 @@
             opacity: 0.5;
         }
 
-        .quote {
-            font-size: 1.5em;
-            text-align: center;
-            width: 80%;
-        }
-
-        .source {
-            width: 20%;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .quoteCont {
-            display: flex;
-            align-items: center;
-            margin: 20px 0 20px 0;
-        }
-
         h1 {
             margin-bottom: 0.45em;
-        }
-
-        a {
-            color: darkblue;
-        }
-
-        .flourish {
-            height: 1em;
-            display: block;
-            margin: 10px auto 0 auto;
         }
 
         /* horizontal */
@@ -167,22 +139,8 @@
                 padding: 0;
             }
 
-            .flourish {
-                height: 0.7em;
-                margin: 5px auto 0 auto;
-            }
-
-            .quote {
-                width: 87.5%;
-            }
-
             .divLine {
                 display: none;
-            }
-
-            .quoteCont {
-                flex-direction: column;
-                margin: 10px auto 10px auto;
             }
         }
     </style>
@@ -212,29 +170,14 @@
         </div>
         <div id="bottomStripe" :style="{height: screenHeight+'px'}">
             <div>
-                <div class="quoteCont" v-for="q,i in (isVertical ? quotes : divideQuotes(1))" :key="q.quote">
-                    <div class="quote">
-                        {{'"'+q.quote+'"'}}
-                        <img class="flourish" v-if="!isVertical" src="images/flourish.png">
-                    </div>
-                    <div class="source">
-                        <a v-if="q.attachment" :href="q.attachment">{{" - "+q.author}}</a>
-                        <span v-else>{{" - "+q.author}}</span>
-                        <img class="flourish" v-if="isVertical" src="images/flourish.png">
-                    </div>
-                </div>
+                <testimonial-quote v-for="q,i in (isVertical ? quotes : divideQuotes(1))" :key="q.quote" :testimonial="q"
+                    :flourish-on-bottom="isVertical">
+                </testimonial-quote>
             </div>
             <hr class="divLine">
             <div v-if="!isVertical">
-                <div class="quoteCont" v-for="q in divideQuotes(2)" :key="q.quote">
-                    <div class="quote">
-                        {{'"'+q.quote+'"'}}
-                        <img class="flourish" src="images/flourish.png">
-                    </div>
-                    <div class="source">
-                        {{" - "+q.author}}
-                    </div>
-                </div>
+                <testimonial-quote v-for="q in divideQuotes(2)" :key="q.quote" :testimonial="q" :flourish-on-bottom="isVertical">
+                </testimonial-quote>
             </div>
         </div>
     </div>
@@ -243,7 +186,8 @@
         new Vue({
             el: "#root",
             components: {
-                LoadingSpinner
+                LoadingSpinner,
+                TestimonialQuote
             },
             data: {
                 screenHeight: document.querySelector("#heightref").offsetHeight,
