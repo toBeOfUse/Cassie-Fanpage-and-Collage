@@ -64,6 +64,6 @@ a {
         flex-direction: column;
         margin: 10px auto 10px auto;
     }
-    
+
 }
 </style>
