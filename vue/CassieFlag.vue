@@ -1,27 +1,19 @@
 <template>
   <div>
-    <div id="topStripe" :class="isVertical ? 'longboi' : 'shortboi'" :style="{height: topStripeHeight}">
+    <div
+      id="topStripe"
+      :class="isVertical ? 'longboi' : 'shortboi'"
+      :style="{height: topStripeHeight+'px'}"
+    >
       <div class="collageCont" :style="{width: screenHeight*collageAspectRatio}">
         <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
-        <template v-if="isVertical">
-          <div style="position: absolute;" :style="calcSpinnerStyle()">
-            <loading-spinner></loading-spinner>
-          </div>
-        </template>
-        <template v-else>
-          <div v-for="(image, i) in images" :key="i" style="position: absolute;" :style="{left: image.left, top: image.top}">
-            <loading-spinner></loading-spinner>
-          </div>
-        </template>
-        <img
-          class="posImage bordered"
+        <cassie-picture
           v-for="(image, i) in images"
-          :src="'images/'+image.file"
           :key="image.file"
-          :id="'cass'+i"
-          @load="imageStyle($event, i, image)"
-          style="visibility: hidden;"
-        />
+          :src="'images/'+image.file"
+          :style="{...imagePos(i), ...imageVisibility(i)}"
+          class="cassiePicture"
+        ></cassie-picture>
       </div>
     </div>
     <div id="middleStripe" :style="{height: screenHeight/3+'px'}">
@@ -38,19 +30,24 @@
       </div>
       <hr v-if="!isVertical" class="divLine" />
       <div v-if="!isVertical">
-        <testimonial-quote v-for="q in divideQuotes(2)" :key="q.quote" :testimonial="q" :flourish-on-bottom="isVertical"></testimonial-quote>
+        <testimonial-quote
+          v-for="q in divideQuotes(2)"
+          :key="q.quote"
+          :testimonial="q"
+          :flourish-on-bottom="isVertical"
+        ></testimonial-quote>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LoadingSpinner from "./LoadingSpinner.vue";
+import CassiePicture from "./CassiePicture.vue";
 import TestimonialQuote from "./TestimonialQuote.vue";
 export default {
     props: ["images", "quotes"],
     components: {
-        LoadingSpinner,
+        CassiePicture,
         TestimonialQuote,
     },
     data: () => ({
@@ -71,19 +68,14 @@ export default {
         });
         const updateSize = () => {
             const isVertical = this.isVertical;
-            this.screenHeight = document.querySelector(
-                "#heightref"
-            ).offsetHeight;
+            this.screenHeight = document.querySelector("#heightref").offsetHeight;
             // just... don't ask
             if (window.outerWidth === 0) {
                 this.screenWidth = window.innerWidth;
             } else if (window.innerWidth === 0) {
                 this.screenWidth = window.outerWidth;
             } else {
-                this.screenWidth = Math.min(
-                    window.outerWidth,
-                    window.innerWidth
-                );
+                this.screenWidth = Math.min(window.outerWidth, window.innerWidth);
             }
             if (isVertical != this.isVertical) {
                 // so the orientation changed
@@ -95,106 +87,48 @@ export default {
         if ("scrollRestoration" in history) {
             history.scrollRestoration = "manual";
         }
-        window.addEventListener(
-            "scroll",
-            () => (this.scrollY = window.scrollY)
-        );
+        window.addEventListener("scroll", () => (this.scrollY = window.scrollY));
     },
     methods: {
-        // called when an image loads; sets up event listeners that keep it in position
-        imageStyle(event, i, meta) {
-            const image = event.target;
-            const style = () => {
-                if (this.isVertical) {
-                    image.style.left = "50%";
-                    const height = this.calcHeight(image);
-                    image.style.height = height;
-                    const isOnTop = this.isOnTop(i);
-                    image.style.opacity = isOnTop ? "1" : "0";
-                    image.style.zIndex = isOnTop ? "10000" : "1";
-                    const position = this.calcPosition(i);
-                    image.style.position = position;
-                    if (position === "absolute") {
-                        image.style.top =
-                            this.images.length *
-                                this.screenHeight *
-                                this.screensPerImage +
-                            this.screenHeight / 2 +
-                            "px";
-                    } else {
-                        image.style.top = "50%";
-                    }
+        imagePos(i) {
+            if (!this.isVertical) {
+                // get image data object without image filename (just positioning info)
+                const { file, ...pos } = this.images[i];
+                return { position: "absolute", ...pos };
+            } else {
+                const finalPos = this.images.length * this.screenHeight * this.screensPerImage;
+                if (i == this.images.length - 1 && this.scrollY > finalPos) {
+                    return {
+                        position: "absolute",
+                        left: "50%",
+                        top: (this.topStripeHeight - this.screenHeight / 2) + "px"
+                    };
                 } else {
-                    image.style.left = meta.left;
-                    image.style.top = meta.top;
-                    image.style.height = meta.height;
-                    image.style.position = "absolute";
-                    image.style.opacity = "1";
+                    return { position: "fixed", left: "50%", top: "50%" };
                 }
-                image.style.visibility = "visible";
-            };
-            style();
-            window.addEventListener("resize", style);
-            window.addEventListener("scroll", style);
-        },
-        /* positioning and visibility math for vertical mode */
-        calcSpinnerStyle() {
-            const finalPos =
-                this.images.length * this.screenHeight * this.screensPerImage;
-            if (this.scrollY < finalPos) {
-                return {
-                    left: "50%",
-                    top: "50%",
-                    position: "fixed",
-                };
-            } else {
-                return {
-                    left: "50%",
-                    top:
-                        this.images.length *
-                            this.screenHeight *
-                            this.screensPerImage +
-                        this.screenHeight / 2 +
-                        "px",
-                };
             }
         },
-        calcHeight(image) {
-            const imageAspectRatio = image.width / image.height;
-            if (imageAspectRatio > this.screenAspectRatio) {
-                const width = this.screenWidth * 0.9;
-                const height = width / imageAspectRatio;
-                return height + "px";
+        imageVisibility(i) {
+            if (!this.isVertical) {
+                return { visibility: "visible", opacity: 1 };
             } else {
-                return this.screenHeight * 0.8 + "px";
+                const screensDown = window.scrollY / this.screenHeight;
+                const currentImage = Math.min(
+                    Math.floor(screensDown / this.screensPerImage),
+                    this.images.length - 1
+                );
+                if (currentImage == i) {
+                    return { visibility: "visible", opacity: "1" };
+                } else {
+                    return { visibility: "hidden", opacity: "0" };
+                }
             }
         },
-        isOnTop(i) {
-            const screensDown = window.scrollY / this.screenHeight;
-            const currentImage = Math.min(
-                Math.floor(screensDown / this.screensPerImage),
-                this.images.length - 1
-            );
-            return currentImage == i;
-        },
-        calcPosition(i) {
-            const totalSlideshowHeight =
-                this.screenHeight * this.screensPerImage * this.images.length;
-            if (window.scrollY >= totalSlideshowHeight) {
-                return "absolute";
-            } else {
-                return "fixed";
-            }
-        },
-        /* boring utility functions */
         divideQuotes(pageNumber) {
             if (pageNumber === 1) {
                 return this.quotes.slice(0, this.quotes.length / 2);
             } else {
-                return this.quotes.slice(
-                    this.quotes.length / 2,
-                    this.quotes.length
-                );
+                return this.quotes.slice(this.quotes.length / 2, this.quotes.length);
             }
         },
         canUseWebP() {
@@ -217,12 +151,10 @@ export default {
         },
         topStripeHeight() {
             if (!this.isVertical) {
-                return this.screenHeight + "px";
+                return this.screenHeight;
             } else {
                 return (
-                    this.screenHeight *
-                        this.screensPerImage *
-                        this.images.length +
+                    this.screenHeight * this.screensPerImage * this.images.length +
                     this.screenHeight
                 );
             }
@@ -232,17 +164,6 @@ export default {
 </script>
 
 <style scoped>
-.posImage {
-    transition: opacity 100ms linear, transform 200ms linear;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-}
-
-.shortboi .posImage:hover {
-    transform: translate(-50%, -50%) scale(1.15, 1.15);
-}
-
 .bordered {
     border: 1px black solid;
     border-radius: 4px;
@@ -261,13 +182,20 @@ export default {
     height: 100%;
 }
 
+.cassiePicture {
+    z-index: 1000;
+    max-height: 80vh;
+    max-width: 90vw;
+    transition: opacity 200ms ease-in-out, visibility 200ms, transform 200ms ease-in-out;
+    transform: translate(-50%, -50%);
+}
+
+.shortBoi .cassiePicture:hover {
+    transform: translate(-50%, -50%) scale(1.15, 1.15);
+}
+
 #middleStripe {
-    background: linear-gradient(
-        to bottom,
-        #9b4f96 0%,
-        #a01194 50%,
-        #9b4f96 100%
-    );
+    background: linear-gradient(to bottom, #9b4f96 0%, #a01194 50%, #9b4f96 100%);
     width: 100%;
     font-family: "Arizonia", Helvetica;
     display: flex;
