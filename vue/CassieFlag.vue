@@ -252,6 +252,12 @@ p {
 
 /* horizontal */
 @media (min-aspect-ratio: 1/1) {
+    @media (min-height: 200px) and (max-height: 300px) {
+        body {
+            font-size: 0.4em;
+        }
+    }
+    
     @media (min-height: 300px) and (max-height: 350px) {
         body {
             font-size: 0.45em;
@@ -270,7 +276,7 @@ p {
         }
     }
 
-    @media (min-height: 450px) and (max-height: 520px) {
+    @media (min-height: 450px) and (max-height: 575px) {
         body {
             font-size: 0.6em;
         }
