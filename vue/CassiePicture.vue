@@ -2,8 +2,8 @@
   <loading-spinner v-if="!loaded && !error"></loading-spinner>
   <span v-else-if="error">error loading image 🥺</span>
   <div v-else class="rotationContainer">
-    <img class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
-    <div class="imageBack"><span>Cute</span></div>
+    <img :alt="backText" class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
+    <div class="imageBack"><span>{{backText}}</span></div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
         loadedSrc: undefined,
         horizontal: undefined
     }),
-    props: ["src", "fallback"],
+    props: ["src", "fallback", "backText"],
     created() {
         const img = new Image();
         img.onload = () => {

@@ -16,6 +16,7 @@
           :src="'images/'+image.file"
           :fallback="image.fallback ? 'images/'+image.fallback : undefined"
           :style="{...imagePos(i), ...imageVisibility(i)}"
+          :backText="image.desc"
           class="cassiePicture"
         ></cassie-picture>
       </div>
@@ -97,7 +98,7 @@ export default {
                     return {
                         position: "absolute",
                         left: "50%",
-                        top: (this.topStripeHeight - this.screenHeight / 2) + "px"
+                        top: this.topStripeHeight - this.screenHeight / 2 + "px",
                     };
                 } else {
                     return { position: "fixed", left: "50%", top: "50%" };
@@ -169,6 +170,7 @@ export default {
     transform: translate(-50%, -50%);
     max-height: 80vh;
     max-width: 95vw;
+    font-family: "Libre Baskerville", serif;
 }
 
 #middleStripe {
