@@ -2,7 +2,7 @@
   <loading-spinner v-if="!loaded && !error"></loading-spinner>
   <span v-else-if="error">error loading image 🥺</span>
   <div v-else class="rotationContainer">
-    <img class="imageFront" :src="loadedSrc" />
+    <img class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
     <div class="imageBack"><span>Cute</span></div>
   </div>
 </template>
@@ -15,12 +15,14 @@ export default {
         haveFallenBack: false,
         error: false,
         loadedSrc: undefined,
+        horizontal: undefined
     }),
     props: ["src", "fallback"],
     created() {
         const img = new Image();
         img.onload = () => {
             this.loadedSrc = img.src;
+            this.horizontal = img.naturalWidth > img.naturalHeight;
             this.loaded = true;
         };
         img.onerror = () => {
@@ -48,7 +50,11 @@ export default {
     transition: transform 300ms ease-in-out;
 }
 
-.rotationContainer:hover .imageFront {
+.rotationContainer:hover .horizontal {
+    transform: rotateX(180deg);
+}
+
+.rotationContainer:hover .vertical {
     transform: rotateY(180deg);
 }
 
@@ -57,15 +63,26 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%) rotateY(180deg);
     backface-visibility: hidden;
     transition: transform 300ms ease-in-out;
     width: 100%;
     height: 100%;
 }
 
-.rotationContainer:hover .imageBack {
+.horizontal+.imageBack {
+    transform: translate(-50%, -50%) rotateX(180deg);
+}
+
+.vertical+.imageBack {
+    transform: translate(-50%, -50%) rotateY(180deg);
+}
+
+.rotationContainer:hover .vertical+.imageBack {
     transform: translate(-50%, -50%) rotateY(360deg);
+}
+
+.rotationContainer:hover .horizontal+.imageBack {
+    transform: translate(-50%, -50%) rotateX(360deg);
 }
 
 .imageBack span {
