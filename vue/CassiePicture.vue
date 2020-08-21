@@ -67,6 +67,7 @@ export default {
     transition: transform 300ms ease-in-out;
     width: 100%;
     height: 100%;
+    border-radius: 4px;
 }
 
 .horizontal+.imageBack {
