@@ -163,16 +163,8 @@ export default {
 .cassiePicture {
     transition: opacity 200ms ease-in-out, visibility 200ms, transform 200ms ease-in-out;
     transform: translate(-50%, -50%);
-}
-
-img.cassiePicture {
     max-height: 80vh;
     max-width: 90vw;
-    border-radius: 4px;
-}
-
-.shortBoi img.cassiePicture:hover {
-    transform: translate(-50%, -50%) scale(1.15, 1.15);
 }
 
 #middleStripe {
