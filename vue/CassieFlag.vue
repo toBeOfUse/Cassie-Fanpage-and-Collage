@@ -269,6 +269,12 @@ p {
             font-size: 0.55em;
         }
     }
+
+    @media (min-height: 450px) and (max-height: 520px) {
+        body {
+            font-size: 0.6em;
+        }
+    }
 }
 
 /* vertical */
