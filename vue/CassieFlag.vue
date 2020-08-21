@@ -11,6 +11,7 @@
           v-for="(image, i) in images"
           :key="image.file"
           :src="'images/'+image.file"
+          :fallback="image.fallback ? 'images/'+image.fallback : undefined"
           :style="{...imagePos(i), ...imageVisibility(i)}"
           class="cassiePicture"
         ></cassie-picture>
@@ -58,14 +59,6 @@ export default {
         scrollY: 0,
     }),
     mounted() {
-        this.canUseWebP().then((canUseWebP) => {
-            if (!canUseWebP) {
-                this.images = this.images.map((v) => ({
-                    ...v,
-                    file: v.file.replace(/\.webp/, ".gif"),
-                }));
-            }
-        });
         const updateSize = () => {
             const isVertical = this.isVertical;
             this.screenHeight = document.querySelector("#heightref").offsetHeight;
@@ -93,7 +86,7 @@ export default {
         imagePos(i) {
             if (!this.isVertical) {
                 // get image data object without image filename (just positioning info)
-                const { file, ...pos } = this.images[i];
+                const { file, fallback, ...pos } = this.images[i];
                 return { position: "absolute", ...pos };
             } else {
                 const finalPos = this.images.length * this.screenHeight * this.screensPerImage;
@@ -130,17 +123,7 @@ export default {
             } else {
                 return this.quotes.slice(this.quotes.length / 2, this.quotes.length);
             }
-        },
-        canUseWebP() {
-            return new Promise((resolve, reject) => {
-                var webP = new Image();
-                webP.onload = webP.onerror = function () {
-                    resolve(webP.height == 2);
-                };
-                webP.src =
-                    "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
-            });
-        },
+        }
     },
     computed: {
         screenAspectRatio() {
@@ -164,11 +147,6 @@ export default {
 </script>
 
 <style scoped>
-.bordered {
-    border: 1px black solid;
-    border-radius: 4px;
-}
-
 #topStripe {
     background: linear-gradient(to bottom, #ffc0e0 0%, #b50367 100%);
     width: 100%;
@@ -183,14 +161,17 @@ export default {
 }
 
 .cassiePicture {
-    z-index: 1000;
-    max-height: 80vh;
-    max-width: 90vw;
     transition: opacity 200ms ease-in-out, visibility 200ms, transform 200ms ease-in-out;
     transform: translate(-50%, -50%);
 }
 
-.shortBoi .cassiePicture:hover {
+img.cassiePicture {
+    max-height: 80vh;
+    max-width: 90vw;
+    border-radius: 4px;
+}
+
+.shortBoi img.cassiePicture:hover {
     transform: translate(-50%, -50%) scale(1.15, 1.15);
 }
 

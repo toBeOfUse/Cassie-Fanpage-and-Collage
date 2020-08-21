@@ -27,5 +27,6 @@ export default [{
     file: "sparkles.webp",
     left: "14%",
     top: "65%",
-    height: "45%"
+    height: "45%",
+    fallback: "sparkles.gif"
 }];
