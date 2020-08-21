@@ -5,10 +5,7 @@
       :class="isVertical ? 'longboi' : 'shortboi'"
       :style="{height: topStripeHeight+'px'}"
     >
-      <div
-        class="collageCont"
-        :style="{width: isVertical ? '100%' : screenHeight*collageAspectRatio+'px'}"
-      >
+      <div class="collageCont" :style="collageDimensions">
         <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
         <cassie-picture
           v-for="(image, i) in images"
@@ -130,6 +127,17 @@ export default {
         },
     },
     computed: {
+        collageDimensions() {
+            if (this.isVertical) {
+                return { width: "100%" };
+            } else {
+                if (this.screenAspectRatio > this.collageAspectRatio) {
+                    return { width: this.screenHeight * this.collageAspectRatio + "px", height: "100%" };
+                } else {
+                    return { height: this.screenHeight * (1 / this.collageAspectRatio) + "px", width: "100%" };
+                }
+            }
+        },
         screenAspectRatio() {
             return this.screenWidth / this.screenHeight;
         },
@@ -157,6 +165,7 @@ export default {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .collageCont {
