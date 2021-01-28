@@ -1,7 +1,7 @@
 <template>
   <loading-spinner v-if="!loaded && !error"></loading-spinner>
   <span v-else-if="error">error loading image 🥺</span>
-  <div v-else class="rotationContainer">
+  <div v-else class="rotationContainer" :class="flipped?'flipped':''" @mouseenter="flipped=true" @mouseleave="flipped=false" @touchstart="flipped=!flipped">
     <img :alt="backText" class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
     <div class="imageBack"><span>{{backText}}</span></div>
   </div>
@@ -15,7 +15,8 @@ export default {
         haveFallenBack: false,
         error: false,
         loadedSrc: undefined,
-        horizontal: undefined
+        horizontal: undefined,
+		flipped: false
     }),
     props: ["src", "fallback", "backText"],
     created() {
@@ -35,6 +36,11 @@ export default {
         };
         img.src = this.src;
     },
+	methods: {
+		log(x) {
+			console.log(x);
+		}
+	},
     components: { LoadingSpinner },
 };
 </script>
@@ -50,11 +56,11 @@ export default {
     transition: transform 300ms ease-in-out;
 }
 
-.rotationContainer:hover .horizontal {
+.rotationContainer.flipped .horizontal {
     transform: rotateX(180deg);
 }
 
-.rotationContainer:hover .vertical {
+.rotationContainer.flipped .vertical {
     transform: rotateY(180deg);
 }
 
@@ -86,11 +92,11 @@ export default {
     transform: translate(-50%, -50%) rotateY(180deg);
 }
 
-.rotationContainer:hover .vertical+.imageBack {
+.rotationContainer.flipped .vertical+.imageBack {
     transform: translate(-50%, -50%) rotateY(360deg);
 }
 
-.rotationContainer:hover .horizontal+.imageBack {
+.rotationContainer.flipped .horizontal+.imageBack {
     transform: translate(-50%, -50%) rotateX(360deg);
 }
 
