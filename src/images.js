@@ -5,11 +5,11 @@ export default [{
     height: "40%",
     desc: "Cassie bein' cute while holding some flowers"
 }, {
-    file: "up.jpg",
+    file: "witch.jpg",
     left: "86%",
     top: "65%",
     height: "45%",
-    desc: "Cassie bein' cute while staring into space"
+    desc: "Cassie bein' cute while wearing a witch costume"
 }, {
     file: "hoodie.jpg",
     left: "15.5%",
@@ -17,17 +17,17 @@ export default [{
     height: "25%",
     desc: "Cassie bein' cute while wearing an ears hoodie"
 }, {
-    file: "milkshake.jpg",
+    file: "talkinghearts.jpg",
     left: "50%",
     top: "75%",
     height: "40%",
-    desc: "Cassie bein' cute while drinking a milkshake"
+    desc: "Cassie bein' cute while sitting on a bed"
 }, {
-    file: "gamer.jpg",
+    file: "up.jpg",
     left: "84.5%",
     top: "25%",
     height: "25%",
-    desc: "Cassie bein' cute while wearing a gaming headset"
+    desc: "Cassie bein' cute while staring into space"
 }, {
     file: "sparkles.webp",
     left: "14%",
