@@ -1,7 +1,14 @@
 <template>
   <loading-spinner v-if="!loaded && !error"></loading-spinner>
   <span v-else-if="error">error loading image 🥺</span>
-  <div v-else class="rotationContainer" :class="flipped?'flipped':''" @mouseenter="flipped=true" @mouseleave="flipped=false" @touchstart="flipped=!flipped">
+  <div 
+	v-else
+	class="rotationContainer" 
+	:class="flipped?'flipped':''" 
+	@mouseenter="flipped=true" 
+	@mouseleave="flipped=false" 
+	@touchstart="touchHandler" 
+	ref="container">
     <img :alt="backText" class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
     <div class="imageBack"><span>{{backText}}</span></div>
   </div>
@@ -37,8 +44,21 @@ export default {
         img.src = this.src;
     },
 	methods: {
-		log(x) {
-			console.log(x);
+		touchHandler(event) {
+			const touchStartTime = Date.now();
+			const flipper = (event2) => {
+				if (Date.now()-touchStartTime < 300){
+					this.flipped = !this.flipped;
+				}
+				this.$refs.container.removeEventListener("touchend", flipper);
+				this.$refs.container.removeEventListener("touchmove", canceller);
+			}
+			const canceller = (event) => {
+				this.$refs.container.removeEventListener("touchend", flipper);
+				this.$refs.container.removeEventListener("touchmove", canceller);
+			}
+			this.$refs.container.addEventListener("touchend", flipper);
+			this.$refs.container.addEventListener("touchmove", canceller, {passive: true});
 		}
 	},
     components: { LoadingSpinner },
