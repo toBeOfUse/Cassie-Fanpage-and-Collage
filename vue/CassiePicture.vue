@@ -68,6 +68,14 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 4px;
+	font-size: 2.35vh;
+	text-align: center;
+}
+
+@media (max-aspect-ratio: 1/1){
+	.imageBack {
+		font-size: 4vh;
+	}
 }
 
 .horizontal+.imageBack {

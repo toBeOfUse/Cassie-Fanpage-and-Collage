@@ -34,5 +34,5 @@ export default [{
     top: "65%",
     height: "45%",
     fallback: "sparkles.gif",
-    desc: "Cassie bein' cute while wearing a stroopwafel crown"
+    desc: "Cassie bein' cute while wearing a cardboard crown"
 }];

@@ -160,7 +160,7 @@ export default {
 
 <style scoped>
 #topStripe {
-    background: linear-gradient(to bottom, #ffc0e0 0%, #b50367 100%);
+    background: #FB7BCE;
     width: 100%;
     position: relative;
     display: flex;
@@ -183,7 +183,7 @@ export default {
 }
 
 #middleStripe {
-    background: linear-gradient(to bottom, #9b4f96 0%, #a01194 50%, #9b4f96 100%);
+    background: #CC7BFE;
     width: 100%;
     font-family: "Arizonia", Helvetica;
     display: flex;
@@ -193,7 +193,7 @@ export default {
 }
 
 #bottomStripe {
-    background: linear-gradient(to bottom, #1562fb 0%, #1342a0 100%);
+    background: #7D93FF;
     width: 100%;
     padding: 0 4% 0 4%;
     display: flex;
@@ -250,57 +250,4 @@ p {
     margin: 0;
 }
 
-/* horizontal */
-@media (min-aspect-ratio: 1/1) {
-    @media (min-height: 200px) and (max-height: 300px) {
-        body {
-            font-size: 0.4em;
-        }
-    }
-    
-    @media (min-height: 300px) and (max-height: 350px) {
-        body {
-            font-size: 0.45em;
-        }
-    }
-
-    @media (min-height: 350px) and (max-height: 400px) {
-        body {
-            font-size: 0.5em;
-        }
-    }
-
-    @media (min-height: 400px) and (max-height: 450px) {
-        body {
-            font-size: 0.55em;
-        }
-    }
-
-    @media (min-height: 450px) and (max-height: 575px) {
-        body {
-            font-size: 0.6em;
-        }
-    }
-}
-
-/* vertical */
-@media (max-aspect-ratio: 1/1) {
-    @media (max-width: 355px) {
-        body {
-            font-size: 0.5em;
-        }
-    }
-
-    @media (min-width: 355px) and (max-width: 420px) {
-        body {
-            font-size: 0.6em;
-        }
-    }
-
-    @media (min-width: 420px) and (max-width: 470px) {
-        body {
-            font-size: 0.7em;
-        }
-    }
-}
 </style>

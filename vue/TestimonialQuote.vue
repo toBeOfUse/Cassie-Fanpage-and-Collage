@@ -37,7 +37,6 @@ export default {
     margin: 20px 0 20px 0;
 }
 
-
 a {
     color: darkblue;
 }
@@ -58,7 +57,12 @@ a {
 
     .quote {
         width: 87.5%;
-    }
+		font-size: 2.2vh;
+	}
+	
+	.source {
+		font-size: 1.4vh;
+	}
 
     .quoteCont {
         flex-direction: column;
@@ -66,4 +70,25 @@ a {
     }
 
 }
+
+/* horizontal */
+
+@media (min-aspect-ratio: 1/1) {
+	.quote {
+		font-size: 3vh;
+	}
+	
+	.source {
+		font-size: 1.5vh;
+	}
+	
+	@media (max-size: 500px) {
+		.flourish {
+			height: 0.75em;
+		}
+	}
+}
+
+
+
 </style>
