@@ -190,6 +190,8 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+	border: solid black;
+    border-width: 3px 0;
 }
 
 #bottomStripe {
