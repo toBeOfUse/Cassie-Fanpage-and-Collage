@@ -19,7 +19,7 @@
             </div>
         </div>
         <div id="middleStripe" :style="{ height: screenHeight / 3 + 'px' }">
-            <img src="images/great.svg" style="height: 65%; max-width: 90%" />
+            <CassieIsGreat style="height: 65%; max-width: 90%" />
         </div>
         <div id="bottomStripe" :style="{ height: screenHeight + 'px' }">
             <div>
@@ -46,11 +46,13 @@
 <script>
 import CassiePicture from "./CassiePicture.vue";
 import TestimonialQuote from "./TestimonialQuote.vue";
+import CassieIsGreat from "../images/great.svg";
 export default {
     props: ["images", "quotes"],
     components: {
         CassiePicture,
         TestimonialQuote,
+        CassieIsGreat,
     },
     data: () => ({
         screenHeight: document.querySelector("#heightref").offsetHeight,

@@ -11,7 +11,7 @@
     >
         <div style="width: 100%; height: 100%" :style="frontTransforms">
             <img :alt="backText" class="imageFront" :src="loadedSrc" />
-            <img src="/images/page-curl.svg" class="pageCurl" />
+            <PageCurl class="pageCurl" />
         </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
         <div class="imageBack" :style="backTransforms">
@@ -22,6 +22,7 @@
 
 <script>
 import LoadingSpinner from "./LoadingSpinner.vue";
+import PageCurl from "../images/page-curl.svg";
 export default {
     data: () => ({
         loaded: false,
@@ -86,7 +87,7 @@ export default {
             };
         },
     },
-    components: { LoadingSpinner },
+    components: { LoadingSpinner, PageCurl },
 };
 </script>
 
