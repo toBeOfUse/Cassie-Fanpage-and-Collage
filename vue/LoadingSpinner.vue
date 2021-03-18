@@ -1,12 +1,12 @@
 <!-- from https://loading.io/css/ with addition to make it self-centering -->
 
 <template>
-  <div class="lds-ellipsis">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </template>
 
 <script>
