@@ -15,7 +15,13 @@
         </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
         <div class="imageBack" :style="{ ...backTransforms, fontSize }">
-            <CornerFiligree
+            <img
+                src="/images/corner-filigree-50px.png"
+                srcset="
+                    /images/corner-filigree-100px.png 2x,
+                    /images/corner-filigree-150px.png 3x,
+                    /images/corner-filigree-200px.png 4x
+                "
                 class="cornerFiligree"
                 v-for="i in 4"
                 :key="i"
