@@ -4,16 +4,18 @@
     <div
         v-else
         class="rotationContainer"
-        :class="flipped ? 'flipped' : ''"
         @mouseenter="flipped = true"
         @mouseleave="flipped = false"
         @touchstart="touchHandler"
         ref="container"
     >
-        <img :alt="backText" class="imageFront" :src="loadedSrc" :style="frontTransforms" />
+        <div style="width: 100%; height: 100%" :style="frontTransforms">
+            <img :alt="backText" class="imageFront" :src="loadedSrc" />
+            <img src="/images/page-curl.svg" class="pageCurl" />
+        </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
         <div class="imageBack" :style="backTransforms">
-            <span :style="backTransforms">{{ backText }}</span>
+            <span>{{ backText }}</span>
         </div>
     </div>
 </template>
@@ -90,6 +92,7 @@ export default {
 
 <style scoped>
 * {
+    transform-style: preserve-3d; /* fixes backface bug in chrome for no reason */
     backface-visibility: hidden;
     transition: transform 500ms ease-in-out;
 }
@@ -110,7 +113,7 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    font-size: 2.35vh;
+    font-size: 1em;
     text-align: center;
     z-index: 900;
     display: flex;
@@ -118,17 +121,18 @@ export default {
     justify-content: center;
 }
 
-@media (max-aspect-ratio: 1/1) {
-    .imageBack {
-        font-size: 4vh;
-    }
-}
-
 .backImage {
     position: absolute;
     left: 0%;
     top: 0%;
     filter: contrast(40%) brightness(150%);
+}
+
+.pageCurl {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
 }
 
 img {
