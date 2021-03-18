@@ -1,10 +1,10 @@
 export default [
   {
-    file: "flowerz.jpg",
+    file: "nature.jpg",
     left: "50%",
     top: "25%",
     height: "40%",
-    desc: "Cassie bein' cute while holding some flowers",
+    desc: "Cassie bein' cute while standing by a lake",
   },
   {
     file: "witch.jpg",
