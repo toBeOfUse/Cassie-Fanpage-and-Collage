@@ -1,17 +1,21 @@
 <template>
-  <loading-spinner v-if="!loaded && !error"></loading-spinner>
-  <span v-else-if="error">error loading image 🥺</span>
-  <div 
-	v-else
-	class="rotationContainer" 
-	:class="flipped?'flipped':''" 
-	@mouseenter="flipped=true" 
-	@mouseleave="flipped=false" 
-	@touchstart="touchHandler" 
-	ref="container">
-    <img :alt="backText" class="imageFront" :class="horizontal ? 'horizontal' : 'vertical'" :src="loadedSrc" />
-    <div class="imageBack"><span>{{backText}}</span></div>
-  </div>
+    <loading-spinner v-if="!loaded && !error"></loading-spinner>
+    <span v-else-if="error">error loading image 🥺</span>
+    <div
+        v-else
+        class="rotationContainer"
+        :class="flipped ? 'flipped' : ''"
+        @mouseenter="flipped = true"
+        @mouseleave="flipped = false"
+        @touchstart="touchHandler"
+        ref="container"
+    >
+        <img :alt="backText" class="imageFront" :src="loadedSrc" :style="frontTransforms" />
+        <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
+        <div class="imageBack" :style="backTransforms">
+            <span :style="backTransforms">{{ backText }}</span>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -22,15 +26,15 @@ export default {
         haveFallenBack: false,
         error: false,
         loadedSrc: undefined,
-        horizontal: undefined,
-		flipped: false
+        orientation: undefined,
+        flipped: false,
     }),
     props: ["src", "fallback", "backText"],
     created() {
         const img = new Image();
         img.onload = () => {
             this.loadedSrc = img.src;
-            this.horizontal = img.naturalWidth > img.naturalHeight;
+            this.orientation = img.naturalWidth > img.naturalHeight ? "horizontal" : "vertical";
             this.loaded = true;
         };
         img.onerror = () => {
@@ -43,88 +47,88 @@ export default {
         };
         img.src = this.src;
     },
-	methods: {
-		touchHandler(event) {
-			const touchStartTime = Date.now();
-			const flipper = (event2) => {
-				if (Date.now()-touchStartTime < 300){
-					this.flipped = !this.flipped;
-				}
-				this.$refs.container.removeEventListener("touchend", flipper);
-				this.$refs.container.removeEventListener("touchmove", canceller);
-			}
-			const canceller = (event) => {
-				this.$refs.container.removeEventListener("touchend", flipper);
-				this.$refs.container.removeEventListener("touchmove", canceller);
-			}
-			this.$refs.container.addEventListener("touchend", flipper);
-			this.$refs.container.addEventListener("touchmove", canceller, {passive: true});
-		}
-	},
+    methods: {
+        touchHandler(event) {
+            const touchStartTime = Date.now();
+            const flipper = (event2) => {
+                if (Date.now() - touchStartTime < 300) {
+                    this.flipped = !this.flipped;
+                }
+                this.$refs.container.removeEventListener("touchend", flipper);
+                this.$refs.container.removeEventListener("touchmove", canceller);
+            };
+            const canceller = (event) => {
+                this.$refs.container.removeEventListener("touchend", flipper);
+                this.$refs.container.removeEventListener("touchmove", canceller);
+            };
+            this.$refs.container.addEventListener("touchend", flipper);
+            this.$refs.container.addEventListener("touchmove", canceller, { passive: true });
+        },
+    },
+    computed: {
+        rotationFunc() {
+            if (this.orientation == "horizontal") {
+                return "rotateX";
+            } else {
+                return "rotateY";
+            }
+        },
+        frontTransforms() {
+            return {
+                transform: this.rotationFunc + (this.flipped ? "(180deg)" : "(0deg)"),
+            };
+        },
+        backTransforms() {
+            return {
+                transform: this.rotationFunc + (this.flipped ? "(0deg)" : "(-180deg)"),
+            };
+        },
+    },
     components: { LoadingSpinner },
 };
 </script>
 
 <style scoped>
+* {
+    backface-visibility: hidden;
+    transition: transform 500ms ease-in-out;
+}
+
 .rotationContainer {
     /* proposal: base perspective on element width ?? */
     perspective: 800px;
 }
 
 .imageFront {
-    backface-visibility: hidden;
-    transition: transform 300ms ease-in-out;
+    z-index: 1000;
 }
-
-.rotationContainer.flipped .horizontal {
-    transform: rotateX(180deg);
-}
-
-.rotationContainer.flipped .vertical {
-    transform: rotateY(180deg);
-}
-
 .imageBack {
-    background-color: #9b4f96;
+    background-color: #f2a7d7cc;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    backface-visibility: hidden;
-    transition: transform 300ms ease-in-out;
+    left: 0%;
+    top: 0%;
     width: 100%;
     height: 100%;
     border-radius: 4px;
-	font-size: 2.35vh;
-	text-align: center;
+    font-size: 2.35vh;
+    text-align: center;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media (max-aspect-ratio: 1/1){
-	.imageBack {
-		font-size: 4vh;
-	}
+@media (max-aspect-ratio: 1/1) {
+    .imageBack {
+        font-size: 4vh;
+    }
 }
 
-.horizontal+.imageBack {
-    transform: translate(-50%, -50%) rotateX(180deg);
-}
-
-.vertical+.imageBack {
-    transform: translate(-50%, -50%) rotateY(180deg);
-}
-
-.rotationContainer.flipped .vertical+.imageBack {
-    transform: translate(-50%, -50%) rotateY(360deg);
-}
-
-.rotationContainer.flipped .horizontal+.imageBack {
-    transform: translate(-50%, -50%) rotateX(360deg);
-}
-
-.imageBack span {
+.backImage {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    left: 0%;
+    top: 0%;
+    filter: contrast(40%) brightness(150%);
 }
 
 img {
