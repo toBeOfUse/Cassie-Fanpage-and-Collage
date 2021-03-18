@@ -15,6 +15,12 @@
         </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
         <div class="imageBack" :style="backTransforms">
+            <CornerFiligree
+                class="cornerFiligree"
+                v-for="i in 4"
+                :key="i"
+                :style="getCornerPos(i)"
+            />
             <span>{{ backText }}</span>
         </div>
     </div>
@@ -23,6 +29,7 @@
 <script>
 import LoadingSpinner from "./LoadingSpinner.vue";
 import PageCurl from "../images/page-curl.svg";
+import CornerFiligree from "../images/corner-filigree.svg";
 export default {
     data: () => ({
         loaded: false,
@@ -67,6 +74,15 @@ export default {
             this.$refs.container.addEventListener("touchend", flipper);
             this.$refs.container.addEventListener("touchmove", canceller, { passive: true });
         },
+        getCornerPos(index) {
+            index -= 1;
+            const pos = { transform: "rotate(" + index * 90 + "deg)" };
+            const x = ["left", "left", "right", "right"];
+            const y = ["bottom", "top", "top", "bottom"];
+            pos[x[index]] = "3px";
+            pos[y[index]] = "3px";
+            return pos;
+        },
     },
     computed: {
         rotationFunc() {
@@ -87,7 +103,7 @@ export default {
             };
         },
     },
-    components: { LoadingSpinner, PageCurl },
+    components: { LoadingSpinner, PageCurl, CornerFiligree },
 };
 </script>
 
@@ -106,6 +122,7 @@ export default {
 .imageFront {
     z-index: 1000;
 }
+
 .imageBack {
     background-color: #f2a7d7cc;
     position: absolute;
@@ -114,12 +131,18 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    font-size: 1em;
+    font-size: 0.75em;
     text-align: center;
     z-index: 900;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .imageBack {
+        font-size: 1.2em;
+    }
 }
 
 .backImage {
@@ -140,6 +163,11 @@ export default {
     .pageCurl {
         display: none;
     }
+}
+
+.cornerFiligree {
+    position: absolute;
+    width: 50px;
 }
 
 img {
