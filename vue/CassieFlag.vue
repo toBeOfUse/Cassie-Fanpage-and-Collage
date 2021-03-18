@@ -183,7 +183,6 @@ export default {
     transition: opacity 200ms ease-in-out, visibility 200ms, transform 200ms ease-in-out;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    max-height: 80vh;
     max-width: 95vw;
     font-family: "Libre Baskerville", serif;
 }
