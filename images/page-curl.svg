@@ -60,7 +60,7 @@
        y2="909.51"
        gradientUnits="userSpaceOnUse"
        x2="668.57"
-       gradientTransform="translate(.000038 0.5)"
+       gradientTransform="translate(3.8e-5,0.5)"
        y1="766.65"
        x1="531.43"
        inkscape:collect="always">
@@ -78,22 +78,22 @@
      id="base"
      bordercolor="#666666"
      inkscape:pageshadow="2"
-     inkscape:window-y="125"
+     inkscape:window-y="-9"
      fit-margin-left="0"
      pagecolor="#ffffff"
      fit-margin-top="0"
-     inkscape:window-maximized="0"
-     inkscape:zoom="0.7"
-     inkscape:window-x="125"
-     inkscape:window-height="721"
+     inkscape:window-maximized="1"
+     inkscape:zoom="15.839192"
+     inkscape:window-x="-9"
+     inkscape:window-height="1001"
      showgrid="false"
      borderopacity="1.0"
      inkscape:current-layer="layer1"
-     inkscape:cx="114.80103"
-     inkscape:cy="212.56777"
+     inkscape:cx="425.74906"
+     inkscape:cy="4.8660509"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1154"
+     inkscape:window-width="1920"
      inkscape:pageopacity="0.0"
      inkscape:document-units="px" />
   <g
@@ -103,36 +103,40 @@
      transform="translate(-361.96 -679.12)">
     <g
        id="g3841"
-       transform="translate(54.286 52.857)">
+       transform="translate(53.678858,54.767714)">
       <ellipse
          id="path2999"
-         style="stroke-linejoin:round;filter:url(#filter3773);stroke:#000000;stroke-linecap:round;stroke-width:3;fill:#000000"
-         transform="matrix(.85681 .79465 -.61458 .66545 1530.6 772.96)"
-         d="m-511.43 810.93c0 130.18-7.6751 235.71-17.143 235.71-9.4677 0-17.143-105.53-17.143-235.71s7.6751-235.71 17.143-235.71c9.4677 0 17.143 105.53 17.143 235.71z"
-         sodipodi:type="arc"
-         sodipodi:ry="235.71428"
-         sodipodi:rx="17.142857"
-         sodipodi:cy="810.93359"
-         sodipodi:cx="-528.57141" />
+         style="fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;filter:url(#filter3773)"
+         transform="matrix(0.85681,0.79465,-0.61458,0.66545,1530.6,772.96)"
+         cx="-528.57141"
+         cy="810.93359"
+         rx="17.142857"
+         ry="235.71428" />
       <path
          id="rect2985-1"
-         d="m432.18 1042.9c17.33-108.7-5.17-181.71-32.05-278.33 134.47-35.06 218.9-20.4 313.79 0.61-123.92 110.65-173.38 179.99-281.74 277.72z"
+         d="M 432.18,1042.9 C 449.51,934.2 427.01,861.19 400.13,764.57 534.6,729.51 619.03,744.17 713.92,765.18 590,875.83 540.54,945.17 432.18,1042.9 Z"
          sodipodi:nodetypes="cccc"
-         style="filter:url(#filter3795);fill:#b3b3b3"
+         style="fill:#b3b3b3;filter:url(#filter3795)"
          inkscape:connector-curvature="0" />
       <path
          id="rect2985"
-         d="m425.45 1050.9c11.221-109.45 32.242-222.18 0-317.14 132.3-42.533 221.22-15.669 317.14 0-116.92 119.09-210.78 201.57-317.14 317.14z"
+         d="m 425.45,1050.9 c 11.221,-109.45 32.242,-222.18 0,-317.14 132.3,-42.533 221.22,-15.669 317.14,0 C 625.67,852.85 531.81,935.33 425.45,1050.9 Z"
          sodipodi:nodetypes="cccc"
          style="fill:url(#linearGradient3847)"
          inkscape:connector-curvature="0" />
       <path
          id="rect2985-4"
-         d="m425.45 734.22c132.3-42.533 221.22-15.669 317.14 0"
+         d="m 425.45,734.22 c 132.3,-42.533 221.22,-15.669 317.14,0"
          sodipodi:nodetypes="cc"
-         style="opacity:.4;stroke-linejoin:round;stroke:#cccccc;stroke-linecap:round;fill:url(#linearGradient3849)"
+         style="opacity:0.4;fill:url(#linearGradient3849);stroke:#cccccc;stroke-linecap:round;stroke-linejoin:round"
          inkscape:connector-curvature="0" />
     </g>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 479.12886,1105.6678 317.14,-317.14008 v 317.14008 z"
+       id="path22"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
   </g>
   <metadata
      id="metadata20">

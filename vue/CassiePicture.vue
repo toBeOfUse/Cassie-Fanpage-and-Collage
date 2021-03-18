@@ -132,7 +132,13 @@ export default {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 10px;
+    width: 30px;
+}
+
+@media (min-aspect-ratio: 1/1) {
+    .pageCurl {
+        display: none;
+    }
 }
 
 img {
