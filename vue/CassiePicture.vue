@@ -125,15 +125,7 @@ export default {
     transform-style: preserve-3d; /* fixes backface bug in chrome for no reason */
     backface-visibility: hidden;
     transition: transform 500ms ease-in-out;
-}
-
-.rotationContainer {
-    /* proposal: base perspective on element width ?? */
     perspective: 800px;
-}
-
-.imageFront {
-    z-index: 1000;
 }
 
 .imageBack {
@@ -144,18 +136,11 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    font-size: 0.75em;
     text-align: center;
-    z-index: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .imageBack {
-        font-size: 1.2em;
-    }
+    padding: 5px;
 }
 
 .backImage {
