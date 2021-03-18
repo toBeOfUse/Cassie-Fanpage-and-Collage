@@ -1,46 +1,46 @@
 <template>
-  <div>
-    <div
-      id="topStripe"
-      :class="isVertical ? 'longboi' : 'shortboi'"
-      :style="{height: topStripeHeight+'px'}"
-    >
-      <div class="collageCont" :style="collageDimensions">
-        <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
-        <cassie-picture
-          v-for="(image, i) in images"
-          :key="image.file"
-          :src="'images/'+image.file"
-          :fallback="image.fallback ? 'images/'+image.fallback : undefined"
-          :style="{...imagePos(i), ...imageVisibility(i)}"
-          :backText="image.desc"
-          class="cassiePicture"
-        ></cassie-picture>
-      </div>
+    <div>
+        <div
+            id="topStripe"
+            :class="isVertical ? 'longboi' : 'shortboi'"
+            :style="{ height: topStripeHeight + 'px' }"
+        >
+            <div class="collageCont" :style="collageDimensions">
+                <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
+                <cassie-picture
+                    v-for="(image, i) in images"
+                    :key="image.file"
+                    :src="'images/' + image.file"
+                    :fallback="image.fallback ? 'images/' + image.fallback : undefined"
+                    :style="{ ...imagePos(i), ...imageVisibility(i) }"
+                    :backText="image.desc"
+                    class="cassiePicture"
+                ></cassie-picture>
+            </div>
+        </div>
+        <div id="middleStripe" :style="{ height: screenHeight / 3 + 'px' }">
+            <img src="images/great.svg" style="height: 65%; max-width: 90%" />
+        </div>
+        <div id="bottomStripe" :style="{ height: screenHeight + 'px' }">
+            <div>
+                <testimonial-quote
+                    v-for="q in isVertical ? quotes : divideQuotes(1)"
+                    :key="q.quote"
+                    :testimonial="q"
+                    :flourish-on-bottom="isVertical"
+                ></testimonial-quote>
+            </div>
+            <hr v-if="!isVertical" class="divLine" />
+            <div v-if="!isVertical">
+                <testimonial-quote
+                    v-for="q in divideQuotes(2)"
+                    :key="q.quote"
+                    :testimonial="q"
+                    :flourish-on-bottom="isVertical"
+                ></testimonial-quote>
+            </div>
+        </div>
     </div>
-    <div id="middleStripe" :style="{height: screenHeight/3+'px'}">
-      <img src="images/great.svg" style="height: 65%; max-width: 90%;" />
-    </div>
-    <div id="bottomStripe" :style="{height: screenHeight+'px'}">
-      <div>
-        <testimonial-quote
-          v-for="q in (isVertical ? quotes : divideQuotes(1))"
-          :key="q.quote"
-          :testimonial="q"
-          :flourish-on-bottom="isVertical"
-        ></testimonial-quote>
-      </div>
-      <hr v-if="!isVertical" class="divLine" />
-      <div v-if="!isVertical">
-        <testimonial-quote
-          v-for="q in divideQuotes(2)"
-          :key="q.quote"
-          :testimonial="q"
-          :flourish-on-bottom="isVertical"
-        ></testimonial-quote>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -132,9 +132,15 @@ export default {
                 return { width: "100%" };
             } else {
                 if (this.screenAspectRatio > this.collageAspectRatio) {
-                    return { width: this.screenHeight * this.collageAspectRatio + "px", height: "100%" };
+                    return {
+                        width: this.screenHeight * this.collageAspectRatio + "px",
+                        height: "100%",
+                    };
                 } else {
-                    return { height: this.screenHeight * (1 / this.collageAspectRatio) + "px", width: "100%" };
+                    return {
+                        height: this.screenWidth / this.collageAspectRatio + "px",
+                        width: "100%",
+                    };
                 }
             }
         },
@@ -160,7 +166,7 @@ export default {
 
 <style scoped>
 #topStripe {
-    background: #FB7BCE;
+    background: #fb7bce;
     width: 100%;
     position: relative;
     display: flex;
@@ -183,19 +189,19 @@ export default {
 }
 
 #middleStripe {
-    background: #CC7BFE;
+    background: #cc7bfe;
     width: 100%;
     font-family: "Arizonia", Helvetica;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-	border: solid black;
+    border: solid black;
     border-width: 3px 0;
 }
 
 #bottomStripe {
-    background: #7D93FF;
+    background: #7d93ff;
     width: 100%;
     padding: 0 4% 0 4%;
     display: flex;
@@ -251,5 +257,4 @@ body,
 p {
     margin: 0;
 }
-
 </style>
