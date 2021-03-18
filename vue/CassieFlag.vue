@@ -10,7 +10,7 @@
                 <cassie-picture
                     v-for="(image, i) in images"
                     :key="image.file"
-                    :src="'images/' + image.file"
+                    :src="imageSrc(i)"
                     :fallback="image.fallback ? 'images/' + image.fallback : undefined"
                     :style="{ ...imagePos(i), ...imageVisibility(i) }"
                     :backText="image.desc"
@@ -86,6 +86,20 @@ export default {
         window.addEventListener("scroll", () => (this.scrollY = window.scrollY));
     },
     methods: {
+        imageSrc(i) {
+            const filename = this.images[i].file.split(".")[0];
+            const actualWidth = this.containerWidth * window.devicePixelRatio;
+            console.log(actualWidth);
+            if (!this.images[i].file.endsWith(".jpg")) {
+                return "/images/" + this.images[i].file;
+            } else if (this.isVertical || actualWidth > 2500) {
+                return "/images/" + filename + "-l.jpg";
+            } else if (actualWidth > 1500) {
+                return "/images/" + filename + "-m.jpg";
+            } else {
+                return "/images/" + filename + "-s.jpg";
+            }
+        },
         imagePos(i) {
             if (!this.isVertical) {
                 // get image data object without image filename (just positioning info)
@@ -129,6 +143,13 @@ export default {
         },
     },
     computed: {
+        containerWidth() {
+            if (this.isVertical || this.screenAspectRatio < this.collageAspectRatio) {
+                return this.screenWidth;
+            } else {
+                return this.screenHeight * this.collageAspectRatio;
+            }
+        },
         collageDimensions() {
             if (this.isVertical) {
                 return { width: "100%" };
