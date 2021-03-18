@@ -14,7 +14,7 @@
             <PageCurl class="pageCurl" />
         </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
-        <div class="imageBack" :style="backTransforms">
+        <div class="imageBack" :style="{ ...backTransforms, fontSize }">
             <CornerFiligree
                 class="cornerFiligree"
                 v-for="i in 4"
@@ -38,6 +38,7 @@ export default {
         loadedSrc: undefined,
         orientation: undefined,
         flipped: false,
+        fontSize: "1em",
     }),
     props: ["src", "fallback", "backText"],
     created() {
@@ -46,6 +47,18 @@ export default {
             this.loadedSrc = img.src;
             this.orientation = img.naturalWidth > img.naturalHeight ? "horizontal" : "vertical";
             this.loaded = true;
+            const setFontSize = () => {
+                if (!this.$refs.container) {
+                    return;
+                }
+                const maxDimension = Math.max(
+                    this.$refs.container.offsetWidth,
+                    this.$refs.container.offsetHeight
+                );
+                this.fontSize = Math.min(20, maxDimension / 15) + "px";
+            };
+            this.$nextTick(setFontSize);
+            window.addEventListener("resize", setFontSize);
         };
         img.onerror = () => {
             if (this.fallback && !this.haveFallenBack) {
@@ -168,6 +181,7 @@ export default {
 .cornerFiligree {
     position: absolute;
     width: 50px;
+    max-width: 40%;
 }
 
 img {
