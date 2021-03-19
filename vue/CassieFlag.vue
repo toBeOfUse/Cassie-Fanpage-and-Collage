@@ -6,7 +6,11 @@
             :style="{ height: topStripeHeight + 'px' }"
         >
             <div class="collageCont" :style="collageDimensions">
-                <div v-if="isVertical" id="scrollMessage">Scroll down ↓</div>
+                <div v-if="isVertical" id="scrollMessage">
+                    Scroll down
+                    <br />
+                    <DownArrow />
+                </div>
                 <cassie-picture
                     v-for="(image, i) in images"
                     :key="image.file"
@@ -16,6 +20,10 @@
                     :backText="image.desc"
                     class="cassiePicture"
                 ></cassie-picture>
+            </div>
+            <div class="progressContainer" :style="progressBarPos" v-if="isVertical">
+                <div v-for="i in images.length" :key="i" />
+                <div id="progressIndicator" :style="progressIndicatorPos" />
             </div>
         </div>
         <div id="middleStripe" :style="{ height: screenHeight / 3 + 'px' }">
@@ -47,12 +55,14 @@
 import CassiePicture from "./CassiePicture.vue";
 import TestimonialQuote from "./TestimonialQuote.vue";
 import CassieIsGreat from "../images/great.svg";
+import DownArrow from "../images/scroll-down.svg";
 export default {
     props: ["images", "quotes"],
     components: {
         CassiePicture,
         TestimonialQuote,
         CassieIsGreat,
+        DownArrow,
     },
     data: () => ({
         screenHeight: document.querySelector("#heightref").offsetHeight,
@@ -122,7 +132,7 @@ export default {
             if (!this.isVertical) {
                 return { visibility: "visible", opacity: 1 };
             } else {
-                const screensDown = window.scrollY / this.screenHeight;
+                const screensDown = this.scrollY / this.screenHeight;
                 const currentImage = Math.min(
                     Math.floor(screensDown / this.screensPerImage),
                     this.images.length - 1
@@ -143,6 +153,25 @@ export default {
         },
     },
     computed: {
+        progressBarPos() {
+            const finalPos = this.topStripeHeight - this.screenHeight;
+            if (this.scrollY < finalPos) {
+                return { position: "fixed", top: "15px" };
+            } else {
+                return { position: "absolute", top: finalPos + 15 };
+            }
+        },
+        progressIndicatorPos() {
+            const indicatorWidth = 1;
+            return {
+                left:
+                    Math.min(
+                        (this.scrollY / (this.topStripeHeight - this.screenHeight)) * 100,
+                        100 - indicatorWidth
+                    ) + "%",
+                width: indicatorWidth + "%",
+            };
+        },
         containerWidth() {
             if (this.isVertical || this.screenAspectRatio < this.collageAspectRatio) {
                 return this.screenWidth;
@@ -210,6 +239,41 @@ export default {
     font-family: "Libre Baskerville", serif;
 }
 
+.progressContainer {
+    position: fixed;
+    width: 90vw;
+    height: 10px;
+    left: 5vw;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    color: purple;
+    fill: purple;
+    background-color: inherit;
+}
+
+.progressContainer div {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.progressContainer div:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.progressContainer div:nth-last-child(2) {
+    border-radius: 0 4px 4px 0;
+}
+
+#progressIndicator {
+    position: absolute;
+    height: 10px;
+    top: 0;
+    background-color: black;
+    border: unset;
+}
+
 #middleStripe {
     background: #cc7bfe;
     width: 100%;
@@ -247,7 +311,8 @@ export default {
     width: 100%;
     text-align: center;
     font-size: 40px;
-    opacity: 0.5;
+    color: #381a45;
+    fill: #381a45;
 }
 
 h1 {
