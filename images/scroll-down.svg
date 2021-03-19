@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.2"
-     inkscape:cx="48.480215"
-     inkscape:cy="11.788633"
+     inkscape:zoom="16"
+     inkscape:cx="10.139313"
+     inkscape:cy="14.009505"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,11 +61,11 @@
     <g
        id="Rounded_Rectangle_33_copy_4_1_"
        transform="matrix(0.01653635,0,0,0.01653635,143.1063,84.300168)">
-	<path
-   id="path5425"
-   d="M 480,344.181 268.869,131.889 c -15.756,-15.859 -41.3,-15.859 -57.054,0 -15.754,15.857 -15.754,41.57 0,57.431 l 237.632,238.937 c 8.395,8.451 19.562,12.254 30.553,11.698 10.993,0.556 22.159,-3.247 30.555,-11.698 L 748.186,189.32 c 15.756,-15.86 15.756,-41.571 0,-57.431 -15.756,-15.86 -41.299,-15.859 -57.051,0 z"
-   inkscape:connector-curvature="0" />
-
-</g>
+      <path
+         id="path5425"
+         d="m 480,387.11277 -211.131,-212.292 c -19.13811,-16.04475 -30.31801,-26.0142 -46.88613,-10.50348 -16.56811,15.51072 -2.79672,33.74009 5.45723,41.56532 L 449.447,428.257 c 8.395,8.451 19.562,12.254 30.553,11.698 10.993,0.556 22.159,-3.247 30.555,-11.698 L 734.57411,201.16412 c 8.34524,-8.89567 15.52968,-23.27162 3.82898,-34.4352 -13.34326,-12.73073 -31.51609,-7.76715 -47.26809,8.09185 z"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cczcccccscc" />
+    </g>
   </g>
 </svg>

@@ -6,7 +6,7 @@
             :style="{ height: topStripeHeight + 'px' }"
         >
             <div class="collageCont" :style="collageDimensions">
-                <div v-if="isVertical" id="scrollMessage">
+                <div v-if="isVertical" id="scrollMessage" :style="scrollMessageVisibility">
                     Scroll down
                     <br />
                     <DownArrow />
@@ -153,6 +153,9 @@ export default {
         },
     },
     computed: {
+        scrollMessageVisibility() {
+            return this.imageVisibility(0);
+        },
         progressBarPos() {
             const finalPos = this.topStripeHeight - this.screenHeight;
             if (this.scrollY < finalPos) {
@@ -305,7 +308,7 @@ export default {
 }
 
 #scrollMessage {
-    position: absolute;
+    position: fixed;
     top: 30px;
     font-family: "Arizonia", Helvetica, sans-serif;
     width: 100%;
