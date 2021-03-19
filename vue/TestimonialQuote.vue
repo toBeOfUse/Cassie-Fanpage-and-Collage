@@ -1,14 +1,12 @@
 <template>
     <div class="quoteCont">
         <div class="quote">
-            {{ '"' + testimonial.quote + '"' }}
+            {{ '"' + quote + '"' }}
             <img class="flourish" v-if="!flourishOnBottom" src="images/flourish.png" />
         </div>
         <div class="source">
-            <a v-if="testimonial.attachment" :href="testimonial.attachment">{{
-                " - " + testimonial.author
-            }}</a>
-            <span v-else>{{ " - " + testimonial.author }}</span>
+            <a v-if="attachment" :href="attachment">{{ " - " + author }}</a>
+            <span v-else>{{ " - " + author }}</span>
             <img class="flourish" v-if="flourishOnBottom" src="images/flourish.png" />
         </div>
     </div>
@@ -16,7 +14,12 @@
 
 <script>
 export default {
-    props: ["testimonial", "flourishOnBottom"],
+    props: {
+        quote: { type: String, required: true },
+        author: { type: String, required: true },
+        attachment: String,
+        flourishOnBottom: Boolean,
+    },
 };
 </script>
 

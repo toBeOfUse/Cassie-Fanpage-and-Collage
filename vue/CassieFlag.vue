@@ -38,7 +38,7 @@
                 <testimonial-quote
                     v-for="q in isVertical ? quotes : divideQuotes(1)"
                     :key="q.quote"
-                    :testimonial="q"
+                    v-bind="q"
                     :flourish-on-bottom="isVertical"
                 ></testimonial-quote>
             </div>
@@ -47,7 +47,7 @@
                 <testimonial-quote
                     v-for="q in divideQuotes(2)"
                     :key="q.quote"
-                    :testimonial="q"
+                    v-bind="q"
                     :flourish-on-bottom="isVertical"
                 ></testimonial-quote>
             </div>
@@ -219,14 +219,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@use "sass:color";
+@use "sass:color" as *;
 
 $cursive-font: "Arizonia", Helvetica, sans-serif;
 $serif-font: "Libre Baskerville", serif;
 
 $top-stripe-color: #fb7bce;
 $progress-bar-color: #852882;
-$scroll-message-color: color.scale($progress-bar-color, $lightness: -50%);
+$scroll-message-color: scale($progress-bar-color, $lightness: -50%);
 $middle-stripe-color: #cc7bfe;
 $bottom-stripe-color: #7d93ff;
 

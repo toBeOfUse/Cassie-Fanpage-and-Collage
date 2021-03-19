@@ -46,7 +46,7 @@ export default {
         flipped: false,
         fontSize: "1em",
     }),
-    props: ["src", "fallback", "backText"],
+    props: { src: { type: String, required: true }, fallback: String, backText: String },
     created() {
         const img = new Image();
         img.onload = () => {
