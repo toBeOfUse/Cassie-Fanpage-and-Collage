@@ -218,9 +218,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use "sass:color";
+
+$cursive-font: "Arizonia", Helvetica, sans-serif;
+$serif-font: "Libre Baskerville", serif;
+
+$top-stripe-color: #fb7bce;
+$progress-bar-color: #852882;
+$scroll-message-color: color.scale($progress-bar-color, $lightness: -50%);
+$middle-stripe-color: #cc7bfe;
+$bottom-stripe-color: #7d93ff;
+
 #topStripe {
-    background: #fb7bce;
+    background: $top-stripe-color;
     width: 100%;
     position: relative;
     display: flex;
@@ -238,7 +249,7 @@ export default {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     max-width: 95vw;
-    font-family: "Libre Baskerville", serif;
+    font-family: $serif-font;
 }
 
 .progressContainer {
@@ -249,7 +260,7 @@ export default {
     display: flex;
     border-radius: 4px;
     overflow: hidden;
-    border: 1px solid #852882;
+    border: 1px solid $progress-bar-color;
 }
 
 .progressContainer div {
@@ -261,14 +272,14 @@ export default {
     position: absolute;
     height: 10px;
     top: 0;
-    background-color: #852882;
+    background-color: $progress-bar-color;
     border: unset;
 }
 
 #middleStripe {
-    background: #cc7bfe;
+    background: $middle-stripe-color;
     width: 100%;
-    font-family: "Arizonia", Helvetica;
+    font-family: $cursive-font;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -276,13 +287,13 @@ export default {
 }
 
 #bottomStripe {
-    background: #7d93ff;
+    background: $bottom-stripe-color;
     width: 100%;
     padding: 0 4% 0 4%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-family: "Libre Baskerville", serif;
+    font-family: $serif-font;
     overflow-y: hidden;
 }
 
@@ -298,12 +309,12 @@ export default {
 #scrollMessage {
     position: fixed;
     top: 30px;
-    font-family: "Arizonia", Helvetica, sans-serif;
+    font-family: $cursive-font;
     width: 100%;
     text-align: center;
     font-size: 40px;
-    color: #381a45;
-    fill: #381a45;
+    color: $scroll-message-color;
+    fill: $scroll-message-color;
 }
 
 h1 {
