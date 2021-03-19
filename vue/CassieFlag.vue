@@ -22,7 +22,11 @@
                 ></cassie-picture>
             </div>
             <div class="progressContainer" :style="progressBarPos" v-if="isVertical">
-                <div v-for="i in images.length" :key="i" />
+                <div
+                    v-for="i in images.length"
+                    :key="i"
+                    :style="{ backgroundColor: ['#ffffff33', '#ffffff66'][i % 2] }"
+                />
                 <div id="progressIndicator" :style="progressIndicatorPos" />
             </div>
         </div>
@@ -165,14 +169,9 @@ export default {
             }
         },
         progressIndicatorPos() {
-            const indicatorWidth = 1;
             return {
-                left:
-                    Math.min(
-                        (this.scrollY / (this.topStripeHeight - this.screenHeight)) * 100,
-                        100 - indicatorWidth
-                    ) + "%",
-                width: indicatorWidth + "%",
+                left: 0,
+                width: (this.scrollY / (this.topStripeHeight - this.screenHeight)) * 100 + "%",
             };
         },
         containerWidth() {
@@ -250,30 +249,19 @@ export default {
     display: flex;
     border-radius: 4px;
     overflow: hidden;
-    color: purple;
-    fill: purple;
-    background-color: inherit;
+    border: 1px solid #852882;
 }
 
 .progressContainer div {
     height: 100%;
     width: 100%;
-    border: 1px solid black;
-}
-
-.progressContainer div:first-child {
-    border-radius: 4px 0 0 4px;
-}
-
-.progressContainer div:nth-last-child(2) {
-    border-radius: 0 4px 4px 0;
 }
 
 #progressIndicator {
     position: absolute;
     height: 10px;
     top: 0;
-    background-color: black;
+    background-color: #852882;
     border: unset;
 }
 
