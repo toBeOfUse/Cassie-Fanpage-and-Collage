@@ -175,6 +175,12 @@ export default {
     max-width: 40%;
 }
 
+@media (max-aspect-ratio: 1/1) {
+    .cornerFiligree {
+        width: 70px;
+    }
+}
+
 img {
     max-height: 100%;
     max-width: 100%;
