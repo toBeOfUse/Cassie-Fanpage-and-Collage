@@ -333,4 +333,9 @@ body,
 p {
     margin: 0;
 }
+
+.longboi img {
+    max-height: 90vh;
+    max-width: 95vw;
+}
 </style>
