@@ -1,12 +1,14 @@
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-const isDev = process.env["NODE_ENV"] != "production";
+const isDev =
+  !process.argv.includes("--production") &&
+  process.env.NODE_ENV != "production";
 module.exports = {
   mode: isDev ? "development" : "production",
   entry: "./src/index.js",
   output: {
     filename: "bundle.js",
   },
-  devtool: isDev ? "inline-cheap-module-source-map" : false,
+  devtool: isDev ? "eval-source-map" : false,
   module: {
     rules: [
       {
