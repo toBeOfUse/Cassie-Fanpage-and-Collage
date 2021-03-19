@@ -11,7 +11,7 @@
     >
         <div style="width: 100%; height: 100%" :style="frontTransforms">
             <img :alt="backText" class="imageFront" :src="loadedSrc" />
-            <PageCurl class="pageCurl" />
+            <CornerMarker class="pageCurl" />
         </div>
         <img :alt="backText" class="backImage" :src="loadedSrc" :style="backTransforms" />
         <div class="imageBack" :style="{ ...backTransforms, fontSize }">
@@ -34,7 +34,7 @@
 
 <script>
 import LoadingSpinner from "./LoadingSpinner.vue";
-import PageCurl from "../images/page-curl.svg";
+import CornerMarker from "../images/corner-marker.svg";
 import CornerFiligree from "../images/corner-filigree.svg";
 export default {
     data: () => ({
@@ -122,7 +122,7 @@ export default {
             };
         },
     },
-    components: { LoadingSpinner, PageCurl, CornerFiligree },
+    components: { LoadingSpinner, CornerMarker, CornerFiligree },
 };
 </script>
 
